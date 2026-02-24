@@ -10,24 +10,24 @@ interface AgeGateProps {
 }
 
 const AgeGate = ({ onVerified, lang, onLangChange, t }: AgeGateProps) => {
-  const [day, setDay] = useState("");
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
+  const [dob, setDob] = useState("");
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
 
   const verify = () => {
-    const d = parseInt(day);
-    const m = parseInt(month);
-    const y = parseInt(year);
-
-    if (!d || !m || !y || y < 1900 || y > 2025 || m < 1 || m > 12 || d < 1 || d > 31) {
+    if (!dob) {
       setError(t.ageError);
       triggerShake();
       return;
     }
 
-    const birth = new Date(y, m - 1, d);
+    const birth = new Date(dob);
+    if (isNaN(birth.getTime())) {
+      setError(t.ageError);
+      triggerShake();
+      return;
+    }
+
     const now = new Date();
     const ageDiff = now.getFullYear() - birth.getFullYear();
     const hasBirthdayPassed =
@@ -96,28 +96,21 @@ const AgeGate = ({ onVerified, lang, onLangChange, t }: AgeGateProps) => {
           {t.ageLabel}
         </label>
 
-        <div className="flex gap-3 mb-6">
-          {[
-            { val: day, set: setDay, ph: "DD", max: 2 },
-            { val: month, set: setMonth, ph: "MM", max: 2 },
-            { val: year, set: setYear, ph: "YYYY", max: 4 },
-          ].map(({ val, set, ph, max }, i) => (
-            <input
-              key={i}
-              type="number"
-              placeholder={ph}
-              value={val}
-              onChange={e => set(e.target.value.slice(0, max))}
-              onKeyDown={e => e.key === "Enter" && verify()}
-              className="flex-1 rounded-xl px-3 py-4 text-center text-lg font-bold outline-none transition-all duration-200 appearance-none"
-              style={{
-                background: "rgba(255,255,255,0.07)",
-                border: "1px solid rgba(255,200,0,0.25)",
-                color: "hsl(48,100%,85%)",
-                fontSize: "1.2rem",
-              }}
-            />
-          ))}
+        <div className="mb-6">
+          <input
+            type="date"
+            value={dob}
+            onChange={e => { setDob(e.target.value); setError(""); }}
+            onKeyDown={e => e.key === "Enter" && verify()}
+            max={new Date().toISOString().split("T")[0]}
+            className="w-full rounded-xl px-5 py-4 text-lg font-bold outline-none transition-all duration-200"
+            style={{
+              background: "rgba(255,255,255,0.07)",
+              border: "1px solid rgba(255,200,0,0.25)",
+              color: "hsl(48,100%,85%)",
+              colorScheme: "dark",
+            }}
+          />
         </div>
 
         {error && (
@@ -149,9 +142,7 @@ const AgeGate = ({ onVerified, lang, onLangChange, t }: AgeGateProps) => {
           75%{transform:translateX(-4px)}
           90%{transform:translateX(4px)}
         }
-        input[type=number]::-webkit-outer-spin-button,
-        input[type=number]::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
-        input[type=number] { -moz-appearance: textfield; }
+        input[type=date]::-webkit-calendar-picker-indicator { filter: invert(1) sepia(1) saturate(3) hue-rotate(5deg); cursor: pointer; opacity: 0.7; }
       `}</style>
     </div>
   );
