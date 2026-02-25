@@ -10,9 +10,19 @@ import { Product, Language } from "@/types/landing";
 import { translations } from "@/data/translations";
 import { products } from "@/data/products";
 
+const detectLanguage = (): Language => {
+  const supported: Language[] = ["en", "de", "fr", "es", "ru", "zh", "ja", "pt"];
+  const browserLangs = navigator.languages ?? [navigator.language];
+  for (const bl of browserLangs) {
+    const code = bl.split("-")[0].toLowerCase();
+    if (supported.includes(code as Language)) return code as Language;
+  }
+  return "en";
+};
+
 const Index = () => {
   const [ageVerified, setAgeVerified] = useState(false);
-  const [lang, setLang] = useState<Language>("en");
+  const [lang, setLang] = useState<Language>(detectLanguage);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const t = translations[lang];
