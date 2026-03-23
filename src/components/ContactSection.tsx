@@ -50,10 +50,10 @@ const ContactSection = ({ t }: Props) => {
           {/* Contact info */}
           <div className="space-y-6">
             {[
-              { icon: "Phone", label: t.contactPhone, value: "+1 (800) 123-4567" },
-              { icon: "Send", label: t.contactTelegram, value: "@premiumstore" },
-              { icon: "MessageCircle", label: t.contactWhatsapp, value: "+1 (800) 123-4567" },
-              { icon: "Mail", label: "Email", value: "hello@premiumstore.com" },
+              { icon: "Phone", label: t.contactPhone, value: "+7 (993) 103-07-83" },
+              { icon: "Send", label: t.contactTelegram, value: "+7 (993) 103-07-83" },
+              { icon: "MessageCircle", label: t.contactWhatsapp, value: "+7 (993) 103-07-83" },
+              { icon: "Mail", label: "Email", value: "dickfon88@gmail.com" },
             ].map(({ icon, label, value }) => (
               <div key={label} className="flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.02] group"
                 style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,200,0,0.12)" }}>

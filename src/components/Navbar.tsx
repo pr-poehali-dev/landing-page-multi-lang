@@ -30,9 +30,9 @@ const Navbar = ({ lang, onLangChange, t }: Props) => {
       }}>
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">✨</span>
+          <span className="text-2xl">🎤</span>
           <span className="font-bold text-xl tracking-wider" style={{ color: "hsl(48,100%,60%)", fontFamily: "Oswald, sans-serif" }}>
-            PREMIUM
+            DICKFON
           </span>
         </div>
 

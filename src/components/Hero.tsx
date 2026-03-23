@@ -34,15 +34,26 @@ const Hero = ({ t }: Props) => {
             border: "1px solid rgba(255,200,0,0.3)",
             color: "hsl(48,100%,65%)",
           }}>
-          ⭐ Premium Collection 2026
+          🎤 DICKFON — официальный сайт
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight"
-          style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)", textShadow: "0 0 60px rgba(255,200,0,0.3)" }}>
-          {t.heroTitle}
-        </h1>
+        <div className="mb-2">
+          <span className="text-6xl md:text-9xl font-black block leading-none"
+            style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)", textShadow: "0 0 80px rgba(255,200,0,0.4)" }}>
+            DICK
+          </span>
+          <span className="text-6xl md:text-9xl font-black block leading-none"
+            style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)", textShadow: "0 0 80px rgba(255,200,0,0.4)" }}>
+            FON
+          </span>
+        </div>
 
-        <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed opacity-80"
+        <p className="text-base md:text-lg mb-2 opacity-60 tracking-widest uppercase"
+          style={{ color: "hsl(48,100%,75%)", fontFamily: "Oswald, sans-serif" }}>
+          {t.heroTitle}
+        </p>
+
+        <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed opacity-80 mt-6"
           style={{ color: "hsl(48,100%,85%)" }}>
           {t.heroSubtitle}
         </p>
