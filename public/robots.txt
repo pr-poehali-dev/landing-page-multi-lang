@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://dickfon.com/sitemap.xml
+Sitemap: https://dickfon.xyz/sitemap.xml
