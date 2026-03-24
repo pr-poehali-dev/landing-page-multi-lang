@@ -4,6 +4,14 @@ import Icon from "@/components/ui/icon";
 
 interface Props { t: Translations }
 
+const SOCIALS = [
+  { label: "Threads", icon: "AtSign", url: "https://www.threads.com/@dickfon_karaoke" },
+  { label: "Instagram", icon: "Instagram", url: "https://www.instagram.com/dickfon_karaoke?igsh=MWdnb2xvaG9vdnN6YQ==" },
+  { label: "YouTube", icon: "Youtube", url: "https://youtube.com/@dickfon?si=fszdzWTOssep__JG" },
+  { label: "Facebook", icon: "Facebook", url: "https://www.facebook.com/share/1DZcs2GEn5/" },
+  { label: "X / Twitter", icon: "Twitter", url: "https://x.com/Dickfon_karaoke" },
+];
+
 const ContactSection = ({ t }: Props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,7 +37,7 @@ const ContactSection = ({ t }: Props) => {
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="absolute inset-0"
         style={{ background: "linear-gradient(180deg, hsl(270,70%,6%) 0%, hsl(270,65%,9%) 100%)" }} />
-      
+
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-10 pointer-events-none"
         style={{ background: "radial-gradient(ellipse, hsl(48,100%,50%), transparent)", filter: "blur(60px)" }} />
 
@@ -48,15 +56,16 @@ const ContactSection = ({ t }: Props) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           {/* Contact info */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {[
-              { icon: "Phone", label: t.contactPhone, value: "+7 (993) 103-07-83" },
-              { icon: "Send", label: t.contactTelegram, value: "+7 (993) 103-07-83" },
-              { icon: "MessageCircle", label: t.contactWhatsapp, value: "+7 (993) 103-07-83" },
-              { icon: "Mail", label: "Email", value: "dickfon88@gmail.com" },
-            ].map(({ icon, label, value }) => (
-              <div key={label} className="flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.02] group"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,200,0,0.12)" }}>
+              { icon: "Phone", label: t.contactPhone, value: "+7 (993) 103-07-83", href: "tel:+79931030783" },
+              { icon: "Send", label: t.contactTelegram, value: "@dickfon_karaoke", href: "https://t.me/+79931030783" },
+              { icon: "MessageCircle", label: t.contactWhatsapp, value: "+7 (993) 103-07-83", href: "https://wa.me/79931030783" },
+              { icon: "Mail", label: "Email", value: "dickfon88@gmail.com", href: "mailto:dickfon88@gmail.com" },
+            ].map(({ icon, label, value, href }) => (
+              <a key={label} href={href} target="_blank" rel="noreferrer"
+                className="flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.02] group"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,200,0,0.12)", textDecoration: "none" }}>
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all group-hover:scale-110"
                   style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)" }}>
                   <Icon name={icon} size={20} />
@@ -67,8 +76,25 @@ const ContactSection = ({ t }: Props) => {
                   </div>
                   <div className="font-semibold" style={{ color: "hsl(48,100%,85%)" }}>{value}</div>
                 </div>
-              </div>
+              </a>
             ))}
+
+            {/* Social links */}
+            <div className="pt-2">
+              <div className="text-xs uppercase tracking-widest opacity-50 mb-3" style={{ color: "hsl(48,100%,70%)" }}>
+                Social Media
+              </div>
+              <div className="flex gap-3 flex-wrap">
+                {SOCIALS.map(({ label, icon, url }) => (
+                  <a key={label} href={url} target="_blank" rel="noreferrer"
+                    title={label}
+                    className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110"
+                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,200,0,0.15)", color: "hsl(48,100%,65%)" }}>
+                    <Icon name={icon} size={18} />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Form */}

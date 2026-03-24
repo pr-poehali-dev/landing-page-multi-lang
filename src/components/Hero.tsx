@@ -28,15 +28,6 @@ const Hero = ({ t }: Props) => {
       </div>
 
       <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <div className="inline-block px-4 py-2 rounded-full text-xs uppercase tracking-widest font-bold mb-8 animate-fade-in"
-          style={{
-            background: "rgba(255,200,0,0.12)",
-            border: "1px solid rgba(255,200,0,0.3)",
-            color: "hsl(48,100%,65%)",
-          }}>
-          🎤 DICKFON — официальный сайт
-        </div>
-
         <div className="mb-2">
           <span className="text-6xl md:text-9xl font-black block leading-none"
             style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)", textShadow: "0 0 80px rgba(255,200,0,0.4)" }}>

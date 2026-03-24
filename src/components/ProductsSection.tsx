@@ -65,13 +65,15 @@ const ProductsSection = ({ products, onSelect, t, lang }: Props) => {
                     </div>
                   )}
 
-                  {/* Play icon hint */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="w-14 h-14 rounded-full flex items-center justify-center text-2xl"
-                      style={{ background: "rgba(255,200,0,0.2)", border: "2px solid rgba(255,200,0,0.5)", backdropFilter: "blur(4px)" }}>
-                      ▶
+                  {product.comingSoon && (
+                    <div className="absolute inset-0 flex items-center justify-center"
+                      style={{ background: "rgba(20,5,40,0.55)", backdropFilter: "blur(2px)" }}>
+                      <span className="px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest"
+                        style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)", fontFamily: "Oswald, sans-serif" }}>
+                        {t.comingSoon}
+                      </span>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Content */}
@@ -86,7 +88,7 @@ const ProductsSection = ({ products, onSelect, t, lang }: Props) => {
 
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-black" style={{ color: "hsl(48,100%,55%)" }}>
-                      {product.price}
+                      {product.price === "priceOnRequest" ? t.priceOnRequest : product.price}
                     </span>
                     <button
                       className="px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-wide transition-all duration-200 hover:scale-105"

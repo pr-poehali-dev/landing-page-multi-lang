@@ -12,7 +12,7 @@ export const products: Product[] = [
     nameKey: "product1Name",
     descKey: "product1Desc",
     longDescKey: "product1Long",
-    price: "₽ 3 990",
+    price: "$190",
     badge: "HIT",
   },
   {
@@ -22,8 +22,9 @@ export const products: Product[] = [
     nameKey: "product2Name",
     descKey: "product2Desc",
     longDescKey: "product2Long",
-    price: "₽ 2 490",
+    price: "$150",
     badge: "NEW",
+    comingSoon: true,
   },
   {
     id: 3,
@@ -32,7 +33,7 @@ export const products: Product[] = [
     nameKey: "product3Name",
     descKey: "product3Desc",
     longDescKey: "product3Long",
-    price: "₽ от 9 990",
+    price: "priceOnRequest",
     badge: "EXCLUSIVE",
   },
 ];

@@ -1,4 +1,4 @@
-export type Language = "en" | "zh" | "hi" | "es" | "fr" | "pt" | "id" | "de";
+export type Language = "en" | "zh" | "hi" | "es" | "fr" | "pt" | "id" | "de" | "ja";
 
 export interface Product {
   id: number;
@@ -10,6 +10,7 @@ export interface Product {
   longDescKey: string;
   price: string;
   badge?: string;
+  comingSoon?: boolean;
 }
 
 export interface Translations {
@@ -51,4 +52,6 @@ export interface Translations {
   product3Name: string;
   product3Desc: string;
   product3Long: string;
+  priceOnRequest: string;
+  comingSoon: string;
 }

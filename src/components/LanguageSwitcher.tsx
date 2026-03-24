@@ -10,6 +10,7 @@ interface Props {
 const langs: { code: LangCode; flag: string; label: string }[] = [
   { code: "en", flag: "🇬🇧", label: "EN" },
   { code: "zh", flag: "🇨🇳", label: "中文" },
+  { code: "ja", flag: "🇯🇵", label: "日本語" },
   { code: "hi", flag: "🇮🇳", label: "HI" },
   { code: "es", flag: "🇪🇸", label: "ES" },
   { code: "fr", flag: "🇫🇷", label: "FR" },

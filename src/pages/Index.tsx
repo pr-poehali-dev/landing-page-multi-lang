@@ -11,7 +11,7 @@ import { translations } from "@/data/translations";
 import { products } from "@/data/products";
 
 const detectLanguage = (): Language => {
-  const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de"];
+  const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja"];
   const browserLangs = navigator.languages ?? [navigator.language];
   for (const bl of browserLangs) {
     const code = bl.split("-")[0].toLowerCase();
