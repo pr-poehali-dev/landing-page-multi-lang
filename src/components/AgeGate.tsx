@@ -48,7 +48,46 @@ const Drum = ({ items, selected, onChange, label }: DrumProps) => {
     setDisplayOffset(newOffset);
   }, [selected]);
 
+  // Native touch handlers with passive:false to prevent page scroll
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      isDragging.current = true;
+      startY.current = e.touches[0].clientY;
+      startOffset.current = currentOffset.current;
+      cancelAnimationFrame(animRef.current);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      if (!isDragging.current) return;
+      const delta = startY.current - e.touches[0].clientY;
+      const newOffset = clamp(startOffset.current + delta);
+      currentOffset.current = newOffset;
+      setDisplayOffset(newOffset);
+    };
+
+    const onTouchEnd = () => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      snapTo(currentOffset.current);
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [snapTo]);
+
   const onPointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === "touch") return; // handled by touch events
     isDragging.current = true;
     startY.current = e.clientY;
     startOffset.current = currentOffset.current;
@@ -57,6 +96,7 @@ const Drum = ({ items, selected, onChange, label }: DrumProps) => {
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
+    if (e.pointerType === "touch") return;
     if (!isDragging.current) return;
     const delta = startY.current - e.clientY;
     const newOffset = clamp(startOffset.current + delta);
@@ -64,7 +104,8 @@ const Drum = ({ items, selected, onChange, label }: DrumProps) => {
     setDisplayOffset(newOffset);
   };
 
-  const onPointerUp = () => {
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (e.pointerType === "touch") return;
     if (!isDragging.current) return;
     isDragging.current = false;
     snapTo(currentOffset.current);
