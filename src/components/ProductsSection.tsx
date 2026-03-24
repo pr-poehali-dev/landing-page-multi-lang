@@ -48,33 +48,52 @@ const ProductsSection = ({ products, onSelect, t, lang }: Props) => {
                 }}
                 onClick={() => onSelect(product)}>
 
-                {/* Image */}
-                <div className="relative overflow-hidden h-64">
-                  <img
-                    src={product.image}
-                    alt={name}
-                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 transition-all duration-300 group-hover:opacity-60"
-                    style={{ background: "linear-gradient(180deg, transparent 40%, hsl(270,70%,6%) 100%)" }} />
+                {/* Image — only render if image exists */}
+                {product.image ? (
+                  <div className="relative overflow-hidden h-64">
+                    <img
+                      src={product.image}
+                      alt={name}
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 transition-all duration-300 group-hover:opacity-60"
+                      style={{ background: "linear-gradient(180deg, transparent 40%, hsl(270,70%,6%) 100%)" }} />
 
-                  {product.badge && (
-                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white"
-                      style={{ background: badgeColors[product.badge] }}>
-                      {product.badge}
-                    </div>
-                  )}
+                    {product.badge && (
+                      <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white"
+                        style={{ background: badgeColors[product.badge] ?? "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))" }}>
+                        {product.badge}
+                      </div>
+                    )}
 
-                  {product.comingSoon && (
-                    <div className="absolute inset-0 flex items-center justify-center"
-                      style={{ background: "rgba(20,5,40,0.55)", backdropFilter: "blur(2px)" }}>
-                      <span className="px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest"
+                    {product.comingSoon && (
+                      <div className="absolute inset-0 flex items-center justify-center"
+                        style={{ background: "rgba(20,5,40,0.55)", backdropFilter: "blur(2px)" }}>
+                        <span className="px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest"
+                          style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)", fontFamily: "Oswald, sans-serif" }}>
+                          {t.comingSoon}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  /* No image: show badge + coming soon inline in card header */
+                  <div className="relative flex items-center justify-center h-32"
+                    style={{ background: "linear-gradient(135deg, hsl(270,70%,9%), hsl(270,60%,14%))" }}>
+                    {product.badge && (
+                      <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white"
+                        style={{ background: badgeColors[product.badge] ?? "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))" }}>
+                        {product.badge}
+                      </div>
+                    )}
+                    {product.comingSoon && (
+                      <span className="px-5 py-2 rounded-full text-base font-black uppercase tracking-widest"
                         style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)", fontFamily: "Oswald, sans-serif" }}>
                         {t.comingSoon}
                       </span>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Content */}
                 <div className="p-6">

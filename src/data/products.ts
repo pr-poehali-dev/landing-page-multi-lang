@@ -2,7 +2,7 @@ import { Product } from "@/types/landing";
 
 const IMG1 = "https://cdn.poehali.dev/projects/ddbb85d8-7b82-4154-9714-085bdb6c3887/bucket/6ece2cfc-03c4-4a65-bdd6-c9177dcb99a7.jpg";
 const IMG2 = "https://cdn.poehali.dev/projects/6bc9d105-e88c-4eff-9fd4-6f1e815bb78c/files/9110167d-d05d-4136-9c82-fcd1127e165e.jpg";
-const IMG3 = "https://cdn.poehali.dev/projects/ddbb85d8-7b82-4154-9714-085bdb6c3887/bucket/6ece2cfc-03c4-4a65-bdd6-c9177dcb99a7.jpg";
+const IMG3 = "https://cdn.poehali.dev/projects/6bc9d105-e88c-4eff-9fd4-6f1e815bb78c/bucket/85bba1e6-8a79-4939-b0b2-8db222048d17.JPG";
 
 export const products: Product[] = [
   {
@@ -17,8 +17,8 @@ export const products: Product[] = [
   },
   {
     id: 2,
-    image: IMG2,
-    gallery: [IMG2],
+    image: "",
+    gallery: [],
     nameKey: "product2Name",
     descKey: "product2Desc",
     longDescKey: "product2Long",
