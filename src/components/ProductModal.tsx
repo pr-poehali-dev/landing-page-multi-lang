@@ -42,38 +42,25 @@ const ProductModal = ({ product, onClose, t, lang }: Props) => {
         </button>
 
         {/* Gallery */}
-        <div className="p-4">
-            <div className="relative rounded-2xl overflow-hidden mb-3" style={{ height: "320px" }}>
-              <img src={product.gallery[activeImg]} alt={name}
-                className="w-full h-full object-cover transition-all duration-500" />
-              
-              {/* Nav arrows */}
-              {product.gallery.length > 1 && (
-                <>
-                  <button onClick={() => setActiveImg((activeImg - 1 + product.gallery.length) % product.gallery.length)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-                    style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,200,0,0.3)", color: "hsl(48,100%,70%)" }}>
-                    <Icon name="ChevronLeft" size={18} />
-                  </button>
-                  <button onClick={() => setActiveImg((activeImg + 1) % product.gallery.length)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-                    style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,200,0,0.3)", color: "hsl(48,100%,70%)" }}>
-                    <Icon name="ChevronRight" size={18} />
-                  </button>
-                </>
-              )}
-            </div>
+        <div className="relative rounded-t-3xl overflow-hidden">
+          <img src={product.gallery[activeImg]} alt={name}
+            className="w-full object-cover transition-all duration-500" />
 
-            {/* Thumbnails */}
-            <div className="flex gap-3">
-              {product.gallery.map((img, i) => (
-                <button key={i} onClick={() => setActiveImg(i)}
-                  className="flex-1 rounded-xl overflow-hidden transition-all duration-200 hover:scale-105"
-                  style={{ height: "70px", border: i === activeImg ? "2px solid hsl(48,100%,55%)" : "2px solid transparent" }}>
-                  <img src={img} alt="" className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
+          {/* Nav arrows */}
+          {product.gallery.length > 1 && (
+            <>
+              <button onClick={() => setActiveImg((activeImg - 1 + product.gallery.length) % product.gallery.length)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,200,0,0.3)", color: "hsl(48,100%,70%)" }}>
+                <Icon name="ChevronLeft" size={18} />
+              </button>
+              <button onClick={() => setActiveImg((activeImg + 1) % product.gallery.length)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,200,0,0.3)", color: "hsl(48,100%,70%)" }}>
+                <Icon name="ChevronRight" size={18} />
+              </button>
+            </>
+          )}
         </div>
 
         {/* Product info */}
