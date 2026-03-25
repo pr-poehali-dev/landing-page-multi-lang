@@ -10,7 +10,6 @@ interface Props {
 }
 
 const ProductModal = ({ product, onClose, t, lang }: Props) => {
-  const [activeTab, setActiveTab] = useState<"gallery" | "video">("gallery");
   const [activeImg, setActiveImg] = useState(0);
 
   useEffect(() => {
@@ -42,24 +41,8 @@ const ProductModal = ({ product, onClose, t, lang }: Props) => {
           <Icon name="X" size={18} />
         </button>
 
-        {/* Tabs */}
-        <div className="flex gap-1 p-4 pb-0">
-          {(["gallery", "video"] as const).map(tab => (
-            <button key={tab}
-              onClick={() => setActiveTab(tab)}
-              className="px-5 py-2 rounded-xl text-sm font-bold uppercase tracking-wide transition-all duration-200"
-              style={{
-                background: activeTab === tab ? "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))" : "rgba(255,255,255,0.05)",
-                color: activeTab === tab ? "hsl(270,70%,10%)" : "hsl(48,100%,70%)",
-              }}>
-              {tab === "gallery" ? t.gallery : t.video}
-            </button>
-          ))}
-        </div>
-
         {/* Gallery */}
-        {activeTab === "gallery" && (
-          <div className="p-4">
+        <div className="p-4">
             <div className="relative rounded-2xl overflow-hidden mb-3" style={{ height: "320px" }}>
               <img src={product.gallery[activeImg]} alt={name}
                 className="w-full h-full object-cover transition-all duration-500" />
@@ -91,20 +74,7 @@ const ProductModal = ({ product, onClose, t, lang }: Props) => {
                 </button>
               ))}
             </div>
-          </div>
-        )}
-
-        {/* Video */}
-        {activeTab === "video" && product.videoUrl && (
-          <div className="p-4">
-            <div className="rounded-2xl overflow-hidden" style={{ paddingTop: "56.25%", position: "relative" }}>
-              <iframe src={product.videoUrl} title="Product video"
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen />
-            </div>
-          </div>
-        )}
+        </div>
 
         {/* Product info */}
         <div className="px-6 pb-8">
