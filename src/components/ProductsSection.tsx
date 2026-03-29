@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Product, Translations, Language } from "@/types/landing";
 
 interface Props {
@@ -109,14 +110,16 @@ const ProductsSection = ({ products, onSelect, t, lang }: Props) => {
                     <span className="text-2xl font-black" style={{ color: "hsl(48,100%,55%)" }}>
                       {product.price === "priceOnRequest" ? t.priceOnRequest : product.price}
                     </span>
-                    <button
+                    <Link
+                      to={`/product/${product.slug}`}
+                      onClick={e => e.stopPropagation()}
                       className="px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-wide transition-all duration-200 hover:scale-105"
                       style={{
                         background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,38%))",
                         color: "hsl(270,70%,10%)",
                       }}>
                       {t.viewDetails}
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

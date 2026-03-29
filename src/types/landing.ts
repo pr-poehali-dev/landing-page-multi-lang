@@ -2,12 +2,16 @@ export type Language = "en" | "zh" | "hi" | "es" | "fr" | "pt" | "id" | "de" | "
 
 export interface Product {
   id: number;
+  slug: string;
   image: string;
   gallery: string[];
   videoUrl?: string;
   nameKey: string;
   descKey: string;
   longDescKey: string;
+  metaTitleKey: string;
+  metaDescKey: string;
+  metaKeywordsKey: string;
   price: string;
   badge?: string;
   comingSoon?: boolean;
@@ -54,4 +58,13 @@ export interface Translations {
   product3Long: string;
   priceOnRequest: string;
   comingSoon: string;
+  product1MetaTitle: string;
+  product1MetaDesc: string;
+  product1MetaKeywords: string;
+  product2MetaTitle: string;
+  product2MetaDesc: string;
+  product2MetaKeywords: string;
+  product3MetaTitle: string;
+  product3MetaDesc: string;
+  product3MetaKeywords: string;
 }
