@@ -10,8 +10,11 @@ import { Product, Language } from "@/types/landing";
 import { translations } from "@/data/translations";
 import { products } from "@/data/products";
 
+const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja"];
+
 const detectLanguage = (): Language => {
-  const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja"];
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+  if (urlLang && supported.includes(urlLang as Language)) return urlLang as Language;
   const browserLangs = navigator.languages ?? [navigator.language];
   for (const bl of browserLangs) {
     const code = bl.split("-")[0].toLowerCase();

@@ -8,8 +8,11 @@ import Footer from "@/components/Footer";
 import ContactSection from "@/components/ContactSection";
 import Icon from "@/components/ui/icon";
 
+const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja"];
+
 const detectLanguage = (): Language => {
-  const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja"];
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+  if (urlLang && supported.includes(urlLang as Language)) return urlLang as Language;
   const browserLangs = navigator.languages ?? [navigator.language];
   for (const bl of browserLangs) {
     const code = bl.split("-")[0].toLowerCase();
