@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://functions.poehali.dev/38e444e1-04df-4faf-8bf3-3e2e5223fb7e
+Sitemap: https://dickfon.xyz/sitemap.xml
