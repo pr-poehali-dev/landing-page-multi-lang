@@ -18,12 +18,13 @@ SITEMAP_XML = """<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="id" href="https://dickfon.xyz/?lang=id"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://dickfon.xyz/?lang=de"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://dickfon.xyz/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://dickfon.xyz/?lang=it"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://dickfon.xyz/"/>
   </url>
 
   <url>
     <loc>https://dickfon.xyz/product/dickfon-karaoke</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://dickfon.xyz/product/dickfon-karaoke?lang=en"/>
@@ -35,12 +36,13 @@ SITEMAP_XML = """<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="id" href="https://dickfon.xyz/product/dickfon-karaoke?lang=id"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://dickfon.xyz/product/dickfon-karaoke?lang=de"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://dickfon.xyz/product/dickfon-karaoke?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://dickfon.xyz/product/dickfon-karaoke?lang=it"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://dickfon.xyz/product/dickfon-karaoke"/>
   </url>
 
   <url>
     <loc>https://dickfon.xyz/product/dickfon-lavalier</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://dickfon.xyz/product/dickfon-lavalier?lang=en"/>
@@ -52,12 +54,13 @@ SITEMAP_XML = """<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="id" href="https://dickfon.xyz/product/dickfon-lavalier?lang=id"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://dickfon.xyz/product/dickfon-lavalier?lang=de"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://dickfon.xyz/product/dickfon-lavalier?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://dickfon.xyz/product/dickfon-lavalier?lang=it"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://dickfon.xyz/product/dickfon-lavalier"/>
   </url>
 
   <url>
     <loc>https://dickfon.xyz/product/dickfon-exclusive</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://dickfon.xyz/product/dickfon-exclusive?lang=en"/>
@@ -69,6 +72,7 @@ SITEMAP_XML = """<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="id" href="https://dickfon.xyz/product/dickfon-exclusive?lang=id"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://dickfon.xyz/product/dickfon-exclusive?lang=de"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://dickfon.xyz/product/dickfon-exclusive?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://dickfon.xyz/product/dickfon-exclusive?lang=it"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://dickfon.xyz/product/dickfon-exclusive"/>
   </url>
 

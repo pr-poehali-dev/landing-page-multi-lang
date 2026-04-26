@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import ContactSection from "@/components/ContactSection";
 import Icon from "@/components/ui/icon";
 
-const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja"];
+const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja", "it"];
 
 const detectLanguage = (): Language => {
   const urlLang = new URLSearchParams(window.location.search).get("lang");

@@ -17,6 +17,7 @@ const langs: { code: LangCode; flag: string; label: string }[] = [
   { code: "pt", flag: "🇧🇷", label: "PT" },
   { code: "id", flag: "🇮🇩", label: "ID" },
   { code: "de", flag: "🇩🇪", label: "DE" },
+  { code: "it", flag: "🇮🇹", label: "IT" },
   { code: "ru", flag: "🇷🇺", label: "RU" },
 ];
 

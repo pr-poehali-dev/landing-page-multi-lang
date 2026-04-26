@@ -10,7 +10,7 @@ import { Product, Language } from "@/types/landing";
 import { translations } from "@/data/translations";
 import { products } from "@/data/products";
 
-const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja"];
+const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja", "it"];
 
 const detectLanguage = (): Language => {
   const urlLang = new URLSearchParams(window.location.search).get("lang");
