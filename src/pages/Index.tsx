@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AgeGate from "@/components/AgeGate";
+import { useAgeGate } from "@/hooks/useAgeGate";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ProductsSection from "@/components/ProductsSection";
@@ -23,18 +24,8 @@ const detectLanguage = (): Language => {
   return "en";
 };
 
-const AGE_KEY = "dickfon_age_verified";
-
-const readVerified = (): boolean => {
-  try {
-    return localStorage.getItem(AGE_KEY) === "1";
-  } catch {
-    return false;
-  }
-};
-
 const Index = () => {
-  const [ageVerified, setAgeVerified] = useState<boolean>(readVerified);
+  const { ageVerified, handleVerified } = useAgeGate();
   const [lang, setLang] = useState<Language>(detectLanguage);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -43,24 +34,6 @@ const Index = () => {
   const handleLanguageChange = (newLang: Language) => {
     setLang(newLang);
   };
-
-  const handleVerified = () => {
-    try {
-      localStorage.setItem(AGE_KEY, "1");
-    } catch {
-      /* storage unavailable */
-    }
-    setAgeVerified(true);
-  };
-
-  useEffect(() => {
-    if (ageVerified) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [ageVerified]);
 
   return (
     <div className="min-h-screen bg-[hsl(var(--background))]">

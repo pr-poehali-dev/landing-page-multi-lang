@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactSection from "@/components/ContactSection";
 import Icon from "@/components/ui/icon";
+import AgeGate from "@/components/AgeGate";
+import { useAgeGate } from "@/hooks/useAgeGate";
 
 const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja", "it"];
 
@@ -24,6 +26,7 @@ const detectLanguage = (): Language => {
 const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { ageVerified, handleVerified } = useAgeGate();
 
   const product = products.find((p) => p.slug === slug);
   const lang = detectLanguage();
@@ -79,6 +82,10 @@ const ProductPage = () => {
 
   const handleLangChange = (newLang: Language) => {
     window.location.href = `/?lang=${newLang}`;
+  };
+
+  const handleGateLangChange = (newLang: Language) => {
+    navigate({ search: `?lang=${newLang}` }, { replace: true });
   };
 
   const paragraphs = longDesc.split("\n\n").filter(Boolean);
@@ -196,6 +203,9 @@ const ProductPage = () => {
 
       <ContactSection t={t} />
       <Footer t={t} />
+      {!ageVerified && (
+        <AgeGate onVerified={handleVerified} lang={lang} onLangChange={handleGateLangChange} t={t} />
+      )}
     </div>
   );
 };
