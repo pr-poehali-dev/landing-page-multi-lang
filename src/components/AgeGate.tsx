@@ -246,7 +246,7 @@ const AgeGate = ({ onVerified, lang, onLangChange, t }: AgeGateProps) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
+    <div role="dialog" aria-modal="true" className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-y-auto"
       style={{ background: "linear-gradient(135deg, hsl(270,70%,6%) 0%, hsl(270,60%,14%) 50%, hsl(270,70%,6%) 100%)" }}>
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -275,10 +275,10 @@ const AgeGate = ({ onVerified, lang, onLangChange, t }: AgeGateProps) => {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-center mb-2 font-oswald tracking-wide"
+        <h2 className="text-3xl font-bold text-center mb-2 font-oswald tracking-wide"
           style={{ color: "hsl(48,100%,60%)" }}>
           {t.ageTitle}
-        </h1>
+        </h2>
         <p className="text-center text-sm mb-8 opacity-70" style={{ color: "hsl(48,100%,85%)" }}>
           {t.ageSubtitle}
         </p>
