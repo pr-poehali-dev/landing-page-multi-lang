@@ -36,7 +36,14 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--background))]">
+    <div className="min-h-screen relative">
+      <div className="liquid-bg">
+        <div className="liquid-blob liquid-blob-1" />
+        <div className="liquid-blob liquid-blob-2" />
+        <div className="liquid-blob liquid-blob-3" />
+        <div className="liquid-blob liquid-blob-4" />
+        <div className="liquid-blob liquid-blob-5" />
+      </div>
       <Navbar lang={lang} onLangChange={handleLanguageChange} t={t} />
       <Hero t={t} />
       <ProductsSection products={products} onSelect={setSelectedProduct} t={t} lang={lang} />

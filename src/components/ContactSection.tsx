@@ -26,127 +26,113 @@ const ContactSection = ({ t }: Props) => {
     setName(""); setEmail(""); setMessage("");
   };
 
+  const inputClass =
+    "w-full px-5 py-4 rounded-2xl text-sm font-rubik text-white placeholder:text-white/30 outline-none transition-all duration-200 focus:border-[#F5D060]/50";
   const inputStyle: React.CSSProperties = {
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,200,0,0.2)",
-    color: "hsl(48,100%,85%)",
-    outline: "none",
+    background: "linear-gradient(155deg, #ffffff14 0%, #ffffff06 50%, #00000020 100%)",
+    border: "1px solid #ffffff1f",
+    boxShadow: "inset 0 1px #ffffff26",
+    backdropFilter: "blur(12px)",
   };
 
+  const contacts = [
+    { icon: "Phone", label: t.contactPhone, value: "+7 (993) 103-07-83", href: "tel:+79931030783" },
+    { icon: "Send", label: t.contactTelegram, value: "@dickfon_karaoke", href: "https://t.me/+79931030783" },
+    { icon: "MessageCircle", label: t.contactWhatsapp, value: "+7 (993) 103-07-83", href: "https://wa.me/79931030783" },
+    { icon: "Mail", label: "Email", value: "dickfon88@gmail.com", href: "mailto:dickfon88@gmail.com" },
+  ];
+
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0"
-        style={{ background: "linear-gradient(180deg, hsl(270,70%,6%) 0%, hsl(270,65%,9%) 100%)" }} />
-
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-10 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, hsl(48,100%,50%), transparent)", filter: "blur(60px)" }} />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+    <section id="contact" className="py-24 px-6 relative z-10">
+      <hr className="section-sep mb-20" />
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black mb-4"
-            style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)" }}>
-            {t.contactTitle}
-          </h2>
-          <p className="text-lg opacity-60" style={{ color: "hsl(48,100%,85%)" }}>
+          <p className="font-cormorant text-[#F5D060] italic text-lg mb-3 text-glow-gold">
             {t.contactSubtitle}
           </p>
-          <div className="w-24 h-1 mx-auto mt-6 rounded-full"
-            style={{ background: "linear-gradient(90deg, transparent, hsl(48,100%,50%), transparent)" }} />
+          <h2 className="font-oswald text-5xl md:text-6xl uppercase tracking-tight text-white text-glow-white">
+            {t.contactTitle}
+          </h2>
+          <div className="gold-divider" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Contact info */}
-          <div className="space-y-4">
-            {[
-              { icon: "Phone", label: t.contactPhone, value: "+7 (993) 103-07-83", href: "tel:+79931030783" },
-              { icon: "Send", label: t.contactTelegram, value: "@dickfon_karaoke", href: "https://t.me/+79931030783" },
-              { icon: "MessageCircle", label: t.contactWhatsapp, value: "+7 (993) 103-07-83", href: "https://wa.me/79931030783" },
-              { icon: "Mail", label: "Email", value: "dickfon88@gmail.com", href: "mailto:dickfon88@gmail.com" },
-            ].map(({ icon, label, value, href }) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer"
-                className="flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.02] group"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,200,0,0.12)", textDecoration: "none" }}>
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all group-hover:scale-110"
-                  style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)" }}>
-                  <Icon name={icon} size={20} />
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-widest opacity-50 mb-1" style={{ color: "hsl(48,100%,70%)" }}>
-                    {label}
-                  </div>
-                  <div className="font-semibold" style={{ color: "hsl(48,100%,85%)" }}>{value}</div>
-                </div>
-              </a>
-            ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {contacts.map(({ icon, label, value, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              className="contact-card p-6 text-center block"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="icon-bubble w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                <Icon name={icon} size={20} className="text-[#F5D060]" />
+              </div>
+              <p className="font-oswald text-xs uppercase tracking-widest text-white/30 mb-1">{label}</p>
+              <p className="font-rubik text-white text-sm break-words">{value}</p>
+            </a>
+          ))}
+        </div>
 
-            {/* Social links */}
-            <div className="pt-2">
-              <div className="text-xs uppercase tracking-widest opacity-50 mb-3" style={{ color: "hsl(48,100%,70%)" }}>
-                Social Media
-              </div>
-              <div className="flex gap-3 flex-wrap">
-                {SOCIALS.map(({ label, icon, url }) => (
-                  <a key={label} href={url} target="_blank" rel="noreferrer"
-                    title={label}
-                    className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110"
-                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,200,0,0.15)", color: "hsl(48,100%,65%)" }}>
-                    <Icon name={icon} size={18} />
-                  </a>
-                ))}
-              </div>
+        <div className="flex justify-center gap-3 flex-wrap mb-14">
+          {SOCIALS.map(({ label, icon, url }) => (
+            <a
+              key={label}
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              title={label}
+              className="icon-bubble w-11 h-11 flex items-center justify-center transition-transform duration-200 hover:scale-110"
+            >
+              <Icon name={icon} size={18} className="text-[#F5D060]" />
+            </a>
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto">
+          <input
+            type="text"
+            placeholder={t.contactName}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className={inputClass}
+            style={inputStyle}
+          />
+          <input
+            type="email"
+            placeholder={t.contactEmail}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={inputClass}
+            style={inputStyle}
+          />
+          <textarea
+            placeholder={t.contactMessage}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            required
+            rows={5}
+            className={`${inputClass} resize-none`}
+            style={inputStyle}
+          />
+
+          {sent && (
+            <div
+              className="flex items-center gap-3 px-5 py-4 rounded-2xl"
+              style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.3)", color: "#86efac" }}
+            >
+              <Icon name="CheckCircle" size={18} />
+              <span className="text-sm">{t.contactSuccess}</span>
             </div>
-          </div>
+          )}
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              placeholder={t.contactName}
-              value={name}
-              onChange={e => setName(e.target.value)}
-              required
-              className="w-full px-5 py-4 rounded-xl text-sm transition-all duration-200 focus:ring-2 focus:ring-yellow-400/30"
-              style={inputStyle}
-            />
-            <input
-              type="email"
-              placeholder={t.contactEmail}
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              className="w-full px-5 py-4 rounded-xl text-sm transition-all duration-200 focus:ring-2 focus:ring-yellow-400/30"
-              style={inputStyle}
-            />
-            <textarea
-              placeholder={t.contactMessage}
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              required
-              rows={5}
-              className="w-full px-5 py-4 rounded-xl text-sm resize-none transition-all duration-200 focus:ring-2 focus:ring-yellow-400/30"
-              style={inputStyle}
-            />
-
-            {sent && (
-              <div className="flex items-center gap-3 px-5 py-4 rounded-xl"
-                style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.3)", color: "#86efac" }}>
-                <Icon name="CheckCircle" size={18} />
-                <span className="text-sm">{t.contactSuccess}</span>
-              </div>
-            )}
-
-            <button type="submit"
-              className="w-full py-4 rounded-xl font-bold text-lg uppercase tracking-widest transition-all duration-200 hover:scale-[1.02] active:scale-95"
-              style={{
-                background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))",
-                color: "hsl(270,70%,10%)",
-                fontFamily: "Oswald, sans-serif",
-                boxShadow: "0 8px 30px rgba(255,200,0,0.25)",
-              }}>
-              {t.contactSend}
-            </button>
-          </form>
-        </div>
+          <button type="submit" className="btn-capsule btn-capsule-blue w-full py-4 text-base">
+            {t.contactSend}
+          </button>
+        </form>
       </div>
     </section>
   );

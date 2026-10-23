@@ -125,7 +125,7 @@ const Drum = ({ items, selected, onChange, label }: DrumProps) => {
 
   return (
     <div className="flex flex-col items-center" style={{ width: 80 }}>
-      <span className="text-xs uppercase tracking-widest mb-2 opacity-50" style={{ color: "hsl(48,100%,70%)" }}>{label}</span>
+      <span className="text-xs uppercase tracking-widest mb-2 opacity-50" style={{ color: "rgba(255,255,255,0.35)" }}>{label}</span>
       <div
         ref={containerRef}
         style={{
@@ -136,7 +136,7 @@ const Drum = ({ items, selected, onChange, label }: DrumProps) => {
           position: "relative",
           borderRadius: 12,
           background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,200,0,0.15)",
+          border: "1px solid rgba(255,255,255,0.12)",
         }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -160,13 +160,13 @@ const Drum = ({ items, selected, onChange, label }: DrumProps) => {
         {/* Top fade */}
         <div style={{
           position: "absolute", top: 0, left: 0, right: 0, height: ITEM_H * 1.5,
-          background: "linear-gradient(to bottom, rgba(20,5,40,0.92), transparent)",
+          background: "linear-gradient(to bottom, rgba(8,5,16,0.92), transparent)",
           pointerEvents: "none", zIndex: 3,
         }} />
         {/* Bottom fade */}
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: ITEM_H * 1.5,
-          background: "linear-gradient(to top, rgba(20,5,40,0.92), transparent)",
+          background: "linear-gradient(to top, rgba(8,5,16,0.92), transparent)",
           pointerEvents: "none", zIndex: 3,
         }} />
 
@@ -247,69 +247,58 @@ const AgeGate = ({ onVerified, lang, onLangChange, t }: AgeGateProps) => {
 
   return (
     <div role="dialog" aria-modal="true" className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-y-auto"
-      style={{ background: "linear-gradient(135deg, hsl(270,70%,6%) 0%, hsl(270,60%,14%) 50%, hsl(270,70%,6%) 100%)" }}>
+      style={{ background: "#080510" }}>
 
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 animate-pulse"
-          style={{ background: "radial-gradient(circle, hsl(48,100%,50%), transparent)", filter: "blur(60px)" }} />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15 animate-pulse"
-          style={{ background: "radial-gradient(circle, hsl(270,80%,50%), transparent)", filter: "blur(80px)", animationDelay: "1s" }} />
+      <div className="liquid-bg">
+        <div className="liquid-blob liquid-blob-1" />
+        <div className="liquid-blob liquid-blob-2" />
+        <div className="liquid-blob liquid-blob-3" />
+        <div className="liquid-blob liquid-blob-4" />
+        <div className="liquid-blob liquid-blob-5" />
       </div>
 
       <div className="absolute top-6 right-6 z-20">
         <LanguageSwitcher lang={lang} onLangChange={onLangChange} />
       </div>
 
-      <div className={`relative z-10 w-full max-w-md mx-4 rounded-2xl p-8 border ${shake ? "animate-[shake_0.5s_ease-in-out]" : ""}`}
-        style={{
-          background: "rgba(255,255,255,0.05)",
-          backdropFilter: "blur(20px)",
-          borderColor: "rgba(255,200,0,0.3)",
-          boxShadow: "0 0 60px rgba(255,200,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1)"
-        }}>
-
-        <div className="flex justify-center mb-6">
-          <div className="w-20 h-20 rounded-full flex items-center justify-center text-4xl"
-            style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", boxShadow: "0 0 30px rgba(255,200,0,0.4)" }}>
-            🔞
+      <div className="relative z-10 text-center px-6 max-w-md w-full py-10">
+        <div className="mb-8">
+          <div className="age-ring w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+            <span className="font-oswald text-[#F5D060] text-2xl font-bold tracking-tight leading-none"
+              style={{ textShadow: "0 0 12px rgba(245,208,96,0.5)" }}>18+</span>
           </div>
+          <h1 className="font-oswald text-4xl md:text-5xl text-white uppercase tracking-[0.15em] mb-3 text-glow-white">
+            {t.ageTitle}
+          </h1>
+          <p className="font-cormorant text-[#F5D060] text-xl italic text-glow-gold">DICKFON</p>
         </div>
 
-        <h2 className="text-3xl font-bold text-center mb-2 font-oswald tracking-wide"
-          style={{ color: "hsl(48,100%,60%)" }}>
-          {t.ageTitle}
-        </h2>
-        <p className="text-center text-sm mb-8 opacity-70" style={{ color: "hsl(48,100%,85%)" }}>
-          {t.ageSubtitle}
-        </p>
-
-        <label className="block text-xs uppercase tracking-widest mb-4 opacity-60 text-center" style={{ color: "hsl(48,100%,70%)" }}>
-          {t.ageLabel}
-        </label>
-
-        <div className="flex justify-center gap-3 mb-6">
-          <Drum items={DAYS} selected={day} onChange={setDay} label="DD" />
-          <Drum items={MONTHS} selected={month} onChange={setMonth} label="MM" />
-          <Drum items={YEARS} selected={year} onChange={setYear} label="YYYY" />
-        </div>
-
-        {error && (
-          <p className="text-center text-sm mb-4 rounded-lg px-4 py-2" style={{ background: "rgba(255,50,50,0.15)", color: "#ff8888", border: "1px solid rgba(255,50,50,0.3)" }}>
-            {error}
+        <div className={`agegate-card p-8 ${shake ? "animate-[shake_0.5s_ease-in-out]" : ""}`}>
+          <p className="font-rubik text-white/70 text-sm mb-6 leading-relaxed relative z-10">
+            {t.ageSubtitle}
           </p>
-        )}
 
-        <button
-          onClick={verify}
-          className="w-full py-4 rounded-xl font-bold text-lg uppercase tracking-widest transition-all duration-200 hover:scale-[1.02] active:scale-95"
-          style={{
-            background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,38%))",
-            color: "hsl(270,70%,10%)",
-            boxShadow: "0 4px 30px rgba(255,200,0,0.35)",
-            fontFamily: "Oswald, sans-serif",
-          }}>
-          {t.ageButton}
-        </button>
+          <label className="font-oswald text-[#F5D060]/75 text-xs uppercase tracking-widest mb-4 block text-left relative z-10">
+            {t.ageLabel}
+          </label>
+
+          <div className="flex justify-center gap-3 mb-6 relative z-10">
+            <Drum items={DAYS} selected={day} onChange={setDay} label="DD" />
+            <Drum items={MONTHS} selected={month} onChange={setMonth} label="MM" />
+            <Drum items={YEARS} selected={year} onChange={setYear} label="YYYY" />
+          </div>
+
+          {error && (
+            <p className="text-center text-sm mb-4 rounded-2xl px-4 py-2 relative z-10"
+              style={{ background: "rgba(255,50,50,0.15)", color: "#ff8888", border: "1px solid rgba(255,50,50,0.3)" }}>
+              {error}
+            </p>
+          )}
+
+          <button onClick={verify} className="btn-capsule btn-capsule-blue w-full justify-center py-4 relative z-10">
+            {t.ageButton}
+          </button>
+        </div>
       </div>
 
       <style>{`

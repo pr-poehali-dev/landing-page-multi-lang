@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Product, Translations, Language } from "@/types/landing";
+import Icon from "@/components/ui/icon";
 
 interface Props {
   products: Product[];
@@ -8,118 +9,105 @@ interface Props {
   lang: Language;
 }
 
-const badgeColors: Record<string, string> = {
-  NEW: "linear-gradient(135deg, #22c55e, #16a34a)",
-  LIMITED: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))",
-  SALE: "linear-gradient(135deg, #ef4444, #b91c1c)",
+const GLOW: Record<number, string> = {
+  1: "rgba(220,160,40,0.7)",
+  2: "rgba(40,160,220,0.65)",
+  3: "rgba(200,80,20,0.65)",
 };
 
-const ProductsSection = ({ products, onSelect, t, lang }: Props) => {
-  return (
-    <section id="products" className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0"
-        style={{ background: "linear-gradient(180deg, hsl(270,70%,6%) 0%, hsl(270,60%,10%) 50%, hsl(270,70%,6%) 100%)" }} />
+const COLOR: Record<number, string> = {
+  1: "#D4A843",
+  2: "#28A0DC",
+  3: "#C85014",
+};
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+const ProductsSection = ({ products, onSelect, t }: Props) => {
+  return (
+    <section id="products" className="py-24 px-6 relative z-10">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black mb-4"
-            style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)" }}>
-            {t.productsTitle}
-          </h2>
-          <p className="text-lg opacity-60" style={{ color: "hsl(48,100%,85%)" }}>
+          <p className="font-cormorant text-[#F5D060] italic text-lg mb-3 text-glow-gold">
             {t.productsSubtitle}
           </p>
-          <div className="w-24 h-1 mx-auto mt-6 rounded-full"
-            style={{ background: "linear-gradient(90deg, hsl(48,100%,50%), transparent)" }} />
+          <h2 className="font-oswald text-5xl md:text-6xl uppercase tracking-tight text-white text-glow-white">
+            {t.productsTitle}
+          </h2>
+          <div className="gold-divider" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products.map((product, index) => {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {products.map((product) => {
             const name = t[product.nameKey as keyof Translations] as string;
             const desc = t[product.descKey as keyof Translations] as string;
+            const color = COLOR[product.id] ?? "#F5D060";
             return (
               <div
                 key={product.id}
-                className="group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:-translate-y-2"
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,200,0,0.15)",
-                  boxShadow: "0 4px 30px rgba(0,0,0,0.3)",
-                  animationDelay: `${index * 0.1}s`,
-                }}
-                onClick={() => onSelect(product)}>
-
-                {/* Image — only render if image exists */}
-                {product.image ? (
-                  <div className="relative overflow-hidden h-64">
-                    <img
-                      src={product.image}
-                      alt={name}
-                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 transition-all duration-300 group-hover:opacity-60"
-                      style={{ background: "linear-gradient(180deg, transparent 40%, hsl(270,70%,6%) 100%)" }} />
-
-                    {product.badge && (
-                      <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white"
-                        style={{ background: badgeColors[product.badge] ?? "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))" }}>
-                        {product.badge}
+                className="product-card group"
+                onClick={() => onSelect(product)}
+              >
+                <div className="product-card-glow" style={{ background: GLOW[product.id] }} />
+                <div className="product-card-inner">
+                  <div
+                    className="relative overflow-hidden"
+                    style={{
+                      background: `radial-gradient(ellipse at 50% 55%, ${color}22 0%, transparent 72%)`,
+                      height: "260px",
+                      borderRadius: "28px 28px 0 0",
+                    }}
+                  >
+                    {product.image ? (
+                      <img
+                        src={product.image}
+                        alt={name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ display: "block" }}
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-full flex items-center justify-center text-6xl"
+                        style={{ background: `radial-gradient(circle, ${color}20, transparent)` }}
+                      >
+                        🎤
                       </div>
                     )}
-
                     {product.comingSoon && (
-                      <div className="absolute inset-0 flex items-center justify-center"
-                        style={{ background: "rgba(20,5,40,0.55)", backdropFilter: "blur(2px)" }}>
-                        <span className="px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest"
-                          style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)", fontFamily: "Oswald, sans-serif" }}>
+                      <div
+                        className="absolute inset-0 flex items-center justify-center z-10"
+                        style={{ background: "rgba(8,5,16,0.55)", backdropFilter: "blur(2px)" }}
+                      >
+                        <span className="btn-capsule btn-capsule-clear pointer-events-none">
                           {t.comingSoon}
                         </span>
                       </div>
                     )}
-                  </div>
-                ) : (
-                  /* No image: show badge + coming soon inline in card header */
-                  <div className="relative flex items-center justify-center h-32"
-                    style={{ background: "linear-gradient(135deg, hsl(270,70%,9%), hsl(270,60%,14%))" }}>
                     {product.badge && (
-                      <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white"
-                        style={{ background: badgeColors[product.badge] ?? "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))" }}>
-                        {product.badge}
-                      </div>
-                    )}
-                    {product.comingSoon && (
-                      <span className="px-5 py-2 rounded-full text-base font-black uppercase tracking-widest"
-                        style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)", fontFamily: "Oswald, sans-serif" }}>
-                        {t.comingSoon}
-                      </span>
+                      <span className="badge-glass absolute top-4 right-4 z-10">{product.badge}</span>
                     )}
                   </div>
-                )}
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-black mb-2 tracking-wide"
-                    style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,65%)" }}>
-                    {name}
-                  </h3>
-                  <p className="text-sm mb-4 opacity-65 leading-relaxed" style={{ color: "hsl(48,100%,85%)" }}>
-                    {desc}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-black" style={{ color: "hsl(48,100%,55%)" }}>
-                      {product.price === "priceOnRequest" ? t.priceOnRequest : product.price}
-                    </span>
-                    <Link
-                      to={`/product/${product.slug}`}
-                      onClick={e => e.stopPropagation()}
-                      className="px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-wide transition-all duration-200 hover:scale-105"
-                      style={{
-                        background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,38%))",
-                        color: "hsl(270,70%,10%)",
-                      }}>
-                      {t.viewDetails}
-                    </Link>
+                  <div className="p-5 relative z-10">
+                    <div className="mb-3">
+                      <span className="product-name-tag">{name}</span>
+                    </div>
+                    <p className="font-rubik text-white/40 text-sm mb-4 line-clamp-2">{desc}</p>
+                    <div className="flex items-center justify-between gap-3">
+                      <span
+                        className="font-oswald text-2xl text-[#F5D060]"
+                        style={{ textShadow: "0 0 16px rgba(245,208,96,0.4)" }}
+                      >
+                        {product.price === "priceOnRequest" ? t.priceOnRequest : product.price}
+                      </span>
+                      <Link
+                        to={`/product/${product.slug}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="btn-capsule btn-capsule-clear text-xs py-2 px-3"
+                        style={{ fontSize: "0.68rem" }}
+                      >
+                        {t.viewDetails}
+                        <Icon name="ArrowRight" size={11} />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

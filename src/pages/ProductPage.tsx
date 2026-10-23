@@ -99,24 +99,25 @@ const ProductPage = () => {
   const paragraphs = longDesc.split("\n\n").filter(Boolean);
 
   return (
-    <div className="min-h-screen" style={{ background: "hsl(270,70%,6%)" }}>
+    <div className="min-h-screen relative">
+      <div className="liquid-bg">
+        <div className="liquid-blob liquid-blob-1" />
+        <div className="liquid-blob liquid-blob-2" />
+        <div className="liquid-blob liquid-blob-3" />
+        <div className="liquid-blob liquid-blob-4" />
+        <div className="liquid-blob liquid-blob-5" />
+      </div>
       <Navbar lang={lang} onLangChange={handleLangChange} t={t} />
 
-      <main className="max-w-4xl mx-auto px-6 pt-32 pb-20">
+      <main className="relative z-10 max-w-4xl mx-auto px-6 pt-28 pb-20">
         <Link
           to="/#products"
-          className="inline-flex items-center gap-2 mb-8 text-sm font-semibold uppercase tracking-widest transition-opacity hover:opacity-70"
-          style={{ color: "hsl(48,100%,60%)" }}>
+          className="btn-capsule btn-capsule-clear mb-8 text-xs">
           <Icon name="ArrowLeft" size={16} />
           {t.navProducts}
         </Link>
 
-        <div className="rounded-3xl overflow-hidden mb-10"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,200,0,0.15)",
-            boxShadow: "0 4px 60px rgba(0,0,0,0.4)",
-          }}>
+        <div className="product-card-inner mb-10" style={{ borderRadius: 32 }}>
 
           {product.image && (
             <div className="relative overflow-hidden" style={{ maxHeight: "480px" }}>
@@ -127,33 +128,29 @@ const ProductPage = () => {
                 style={{ maxHeight: "480px" }}
               />
               <div className="absolute inset-0"
-                style={{ background: "linear-gradient(180deg, transparent 50%, hsl(270,70%,6%) 100%)" }} />
+                style={{ background: "linear-gradient(180deg, transparent 60%, rgba(8,5,16,0.7) 100%)" }} />
               {product.badge && (
-                <div className="absolute top-6 right-6 px-4 py-1.5 rounded-full text-sm font-black uppercase tracking-widest text-white"
-                  style={{ background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))", color: "hsl(270,70%,10%)" }}>
-                  {product.badge}
-                </div>
+                <span className="badge-glass absolute top-6 right-6 z-10">{product.badge}</span>
               )}
             </div>
           )}
 
           <div className="px-8 py-8">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-              <h1 className="text-3xl md:text-4xl font-black"
-                style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)" }}>
+              <h1 className="font-oswald text-3xl md:text-4xl uppercase tracking-tight text-white text-glow-white">
                 {name}
               </h1>
-              <span className="text-3xl font-black shrink-0"
-                style={{ color: "hsl(48,100%,55%)" }}>
+              <span className="font-oswald text-3xl shrink-0 text-[#F5D060]"
+                style={{ textShadow: "0 0 16px rgba(245,208,96,0.4)" }}>
                 {product.price === "priceOnRequest" ? t.priceOnRequest : product.price}
               </span>
             </div>
 
-            <div className="w-full h-px mb-8 opacity-20" style={{ background: "hsl(48,100%,50%)" }} />
+            <hr className="section-sep mb-8" />
 
             <div className="space-y-4">
               {paragraphs.map((p, i) => (
-                <p key={i} className="text-base leading-relaxed" style={{ color: "hsl(48,100%,82%)", opacity: 0.85 }}>
+                <p key={i} className="font-rubik text-base leading-relaxed text-white/60">
                   {p}
                 </p>
               ))}
@@ -162,13 +159,7 @@ const ProductPage = () => {
             <div className="mt-10">
               <Link
                 to="/#contact"
-                className="inline-flex items-center justify-center w-full py-4 rounded-2xl font-bold text-lg uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-95"
-                style={{
-                  background: "linear-gradient(135deg, hsl(48,100%,50%), hsl(48,100%,35%))",
-                  color: "hsl(270,70%,10%)",
-                  fontFamily: "Oswald, sans-serif",
-                  boxShadow: "0 8px 30px rgba(255,200,0,0.3)",
-                }}>
+                className="btn-capsule btn-capsule-blue w-full py-4 text-base">
                 {t.contactTitle}
               </Link>
             </div>
@@ -183,25 +174,18 @@ const ProductPage = () => {
               <Link
                 key={p.id}
                 to={`/product/${p.slug}`}
-                className="group rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1"
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,200,0,0.12)",
-                }}>
+                className="product-card group">
+                <div className="product-card-inner">
                 {p.image && (
                   <div className="h-40 overflow-hidden">
                     <img src={p.image} alt={pName}
                       className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110" />
                   </div>
                 )}
-                <div className="p-4">
-                  <h3 className="text-base font-black mb-1"
-                    style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,65%)" }}>
-                    {pName}
-                  </h3>
-                  <p className="text-xs leading-relaxed opacity-60" style={{ color: "hsl(48,100%,85%)" }}>
-                    {pDesc}
-                  </p>
+                <div className="p-4 relative z-10">
+                  <div className="mb-2"><span className="product-name-tag">{pName}</span></div>
+                  <p className="font-rubik text-xs leading-relaxed text-white/40">{pDesc}</p>
+                </div>
                 </div>
               </Link>
             );

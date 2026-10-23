@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Language, Translations } from "@/types/landing";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Icon from "@/components/ui/icon";
 
 interface Props {
   lang: Language;
@@ -8,49 +9,79 @@ interface Props {
   t: Translations;
 }
 
-const Navbar = ({ lang, onLangChange, t }: Props) => {
-  const [scrolled, setScrolled] = useState(false);
+const NAV_STYLES = ["btn-nav-blue", "btn-nav-orange", "btn-nav-ice"];
 
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
+const HOME_LABEL: Record<Language, string> = {
+  en: "Home", zh: "首页", hi: "होम", es: "Inicio", fr: "Accueil",
+  pt: "Início", id: "Beranda", de: "Start", ja: "ホーム", it: "Home",
+};
+
+const Navbar = ({ lang, onLangChange, t }: Props) => {
+  const [open, setOpen] = useState(false);
 
   const scrollTo = (id: string) => {
+    setOpen(false);
+    if (id === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const items = [
+    { label: HOME_LABEL[lang], id: "top" },
+    { label: t.navProducts, id: "products" },
+    { label: t.navContact, id: "contact" },
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
-      style={{
-        background: scrolled ? "rgba(15,5,30,0.95)" : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,200,0,0.15)" : "none",
-      }}>
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">🎤</span>
-          <span className="font-bold text-xl tracking-wider" style={{ color: "hsl(48,100%,60%)", fontFamily: "Oswald, sans-serif" }}>
-            DICKFON
-          </span>
+    <nav className="glass-nav fixed top-0 left-0 right-0 z-50">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <button
+          onClick={() => scrollTo("top")}
+          className="font-oswald text-xl tracking-widest text-[#F5D060] uppercase hover:opacity-80 transition-opacity text-glow-gold"
+        >
+          DICKFON
+        </button>
+
+        <div className="hidden md:flex items-center gap-3">
+          {items.map((item, i) => (
+            <button
+              key={item.id}
+              onClick={() => scrollTo(item.id)}
+              className={`btn-nav-capsule ${NAV_STYLES[i] ?? "btn-nav-ice"}`}
+            >
+              {item.label}
+            </button>
+          ))}
+          <LanguageSwitcher lang={lang} onLangChange={onLangChange} />
         </div>
 
-        <div className="hidden md:flex items-center gap-8">
-          <button onClick={() => scrollTo("products")}
-            className="text-sm uppercase tracking-widest transition-all duration-200 hover:scale-105 font-semibold"
-            style={{ color: "hsl(48,100%,75%)" }}>
-            {t.navProducts}
-          </button>
-          <button onClick={() => scrollTo("contact")}
-            className="text-sm uppercase tracking-widest transition-all duration-200 hover:scale-105 font-semibold"
-            style={{ color: "hsl(48,100%,75%)" }}>
-            {t.navContact}
-          </button>
-        </div>
-
-        <LanguageSwitcher lang={lang} onLangChange={onLangChange} />
+        <button
+          className="md:hidden text-white/60 hover:text-white transition-colors"
+          onClick={() => setOpen(!open)}
+        >
+          <Icon name={open ? "X" : "Menu"} size={22} />
+        </button>
       </div>
+
+      {open && (
+        <div
+          className="md:hidden border-t border-white/10 px-6 py-5 flex flex-col gap-3"
+          style={{ background: "rgba(8,5,16,0.95)", backdropFilter: "blur(28px)" }}
+        >
+          {items.map((item, i) => (
+            <button
+              key={item.id}
+              onClick={() => scrollTo(item.id)}
+              className={`btn-nav-capsule ${NAV_STYLES[i] ?? "btn-nav-ice"} w-full`}
+            >
+              {item.label}
+            </button>
+          ))}
+          <LanguageSwitcher lang={lang} onLangChange={onLangChange} />
+        </div>
+      )}
     </nav>
   );
 };

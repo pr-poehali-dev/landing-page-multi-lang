@@ -1,4 +1,5 @@
 import { Translations } from "@/types/landing";
+import Icon from "@/components/ui/icon";
 
 interface Props { t: Translations }
 
@@ -8,64 +9,35 @@ const Hero = ({ t }: Props) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Animated background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0"
-          style={{ background: "linear-gradient(135deg, hsl(270,70%,6%) 0%, hsl(270,55%,13%) 50%, hsl(270,70%,6%) 100%)" }} />
-        
-        {/* Animated orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 rounded-full opacity-25 animate-pulse"
-          style={{ background: "radial-gradient(circle, hsl(48,100%,50%), transparent)", filter: "blur(50px)" }} />
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, hsl(280,80%,40%), transparent)", filter: "blur(70px)", animation: "pulse 3s ease-in-out infinite 1s" }} />
-        <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, hsl(48,100%,40%), transparent)", filter: "blur(100px)", transform: "translate(-50%,-50%)", animation: "pulse 4s ease-in-out infinite 0.5s" }} />
-
-        {/* Grid lines */}
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: "linear-gradient(hsl(48,100%,50%) 1px, transparent 1px), linear-gradient(90deg, hsl(48,100%,50%) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-      </div>
-
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <div className="mb-2">
-          <span className="text-6xl md:text-9xl font-black block leading-none"
-            style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)", textShadow: "0 0 80px rgba(255,200,0,0.4)" }}>
-            DICK
-          </span>
-          <span className="text-6xl md:text-9xl font-black block leading-none"
-            style={{ fontFamily: "Oswald, sans-serif", color: "hsl(48,100%,60%)", textShadow: "0 0 80px rgba(255,200,0,0.4)" }}>
-            FON
-          </span>
-        </div>
-
-        <p className="text-base md:text-lg mb-2 opacity-60 tracking-widest uppercase"
-          style={{ color: "hsl(48,100%,75%)", fontFamily: "Oswald, sans-serif" }}>
-          {t.heroTitle}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <p className="font-cormorant text-[#F5D060] text-lg italic tracking-widest mb-4 text-glow-gold">
+          — {t.heroTitle} —
         </p>
 
-        <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed opacity-80 mt-6"
-          style={{ color: "hsl(48,100%,85%)" }}>
+        <h1 className="font-oswald text-6xl md:text-8xl lg:text-9xl uppercase tracking-tight leading-none mb-6 hero-gradient-text">
+          DICK
+          <br />
+          <span style={{ WebkitTextFillColor: "white", filter: "drop-shadow(0 0 18px rgba(255,255,255,0.12))" }}>
+            FON
+          </span>
+        </h1>
+
+        <p className="font-rubik text-white/55 text-lg md:text-xl max-w-lg mx-auto mb-12">
           {t.heroSubtitle}
         </p>
 
         <button
           onClick={() => scrollTo("products")}
-          className="px-10 py-5 rounded-2xl font-bold text-lg uppercase tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95"
-          style={{
-            background: "linear-gradient(135deg, hsl(48,100%,52%), hsl(48,100%,38%))",
-            color: "hsl(270,70%,10%)",
-            fontFamily: "Oswald, sans-serif",
-            boxShadow: "0 8px 40px rgba(255,200,0,0.4)",
-          }}>
-          {t.heroButton} →
+          className="btn-capsule btn-capsule-blue text-base px-8 py-4"
+        >
+          {t.heroButton}
+          <Icon name="ArrowDown" size={18} />
         </button>
+      </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-          <div className="w-px h-12 animate-pulse" style={{ background: "hsl(48,100%,60%)" }} />
-          <span className="text-xs uppercase tracking-widest" style={{ color: "hsl(48,100%,60%)" }}>scroll</span>
-        </div>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <Icon name="ChevronDown" size={24} className="text-white/25" />
       </div>
     </section>
   );
