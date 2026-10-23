@@ -73,6 +73,14 @@ const ProductPage = () => {
     if (product.image) setOgMeta("og:image", product.image);
     setOgMeta("og:type", "product");
 
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", `https://dickfon.xyz/product/${product.slug}`);
+
     return () => {
       document.title = "DICKFON";
     };
