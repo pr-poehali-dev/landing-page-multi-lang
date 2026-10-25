@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import NotFound from "@/pages/NotFound";
+import { useSeo } from "@/hooks/useSeo";
+import { homeSeo } from "@/data/seo";
+import { DEFAULT_LANG, isLang, langPath } from "@/lib/lang";
 import AgeGate from "@/components/AgeGate";
 import { useAgeGate } from "@/hooks/useAgeGate";
 import Navbar from "@/components/Navbar";
@@ -11,29 +16,29 @@ import { Product, Language } from "@/types/landing";
 import { translations } from "@/data/translations";
 import { products } from "@/data/products";
 
-const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja", "it"];
-
-const detectLanguage = (): Language => {
-  const urlLang = new URLSearchParams(window.location.search).get("lang");
-  if (urlLang && supported.includes(urlLang as Language)) return urlLang as Language;
-  const browserLangs = navigator.languages ?? [navigator.language];
-  for (const bl of browserLangs) {
-    const code = bl.split("-")[0].toLowerCase();
-    if (supported.includes(code as Language)) return code as Language;
-  }
-  return "en";
-};
-
 const Index = () => {
+  const { lang: langParam } = useParams<{ lang?: string }>();
+  const navigate = useNavigate();
   const { ageVerified, handleVerified } = useAgeGate();
-  const [lang, setLang] = useState<Language>(detectLanguage);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  const invalid = !!langParam && !isLang(langParam);
+  const lang: Language = isLang(langParam) ? langParam : DEFAULT_LANG;
   const t = translations[lang];
+  const seo = homeSeo[lang];
+
+  useSeo({ lang, path: "/", title: seo.title, description: seo.description, keywords: seo.keywords });
+
+  useEffect(() => {
+    const legacy = new URLSearchParams(window.location.search).get("lang");
+    if (isLang(legacy)) navigate(langPath(legacy), { replace: true });
+  }, [navigate]);
 
   const handleLanguageChange = (newLang: Language) => {
-    setLang(newLang);
+    navigate(langPath(newLang));
   };
+
+  if (invalid) return <NotFound />;
 
   return (
     <div className="min-h-screen relative">

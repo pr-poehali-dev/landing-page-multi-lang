@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { langPath } from "@/lib/lang";
 import { Product, Translations, Language } from "@/types/landing";
 import Icon from "@/components/ui/icon";
 
@@ -21,7 +22,7 @@ const COLOR: Record<number, string> = {
   3: "#C85014",
 };
 
-const ProductsSection = ({ products, onSelect, t }: Props) => {
+const ProductsSection = ({ products, onSelect, t, lang }: Props) => {
   return (
     <section id="products" className="py-24 px-6 relative z-10">
       <div className="max-w-6xl mx-auto">
@@ -99,7 +100,7 @@ const ProductsSection = ({ products, onSelect, t }: Props) => {
                         {product.price === "priceOnRequest" ? t.priceOnRequest : product.price}
                       </span>
                       <Link
-                        to={`/product/${product.slug}`}
+                        to={langPath(lang, `/product/${product.slug}`)}
                         onClick={(e) => e.stopPropagation()}
                         className="btn-capsule btn-capsule-clear text-xs py-2 px-3"
                         style={{ fontSize: "0.68rem" }}

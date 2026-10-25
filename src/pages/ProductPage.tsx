@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import NotFound from "@/pages/NotFound";
+import { useSeo } from "@/hooks/useSeo";
+import { DEFAULT_LANG, isLang, langPath } from "@/lib/lang";
 import { products } from "@/data/products";
 import { translations } from "@/data/translations";
 import { Language, Translations } from "@/types/landing";
@@ -10,26 +13,14 @@ import Icon from "@/components/ui/icon";
 import AgeGate from "@/components/AgeGate";
 import { useAgeGate } from "@/hooks/useAgeGate";
 
-const supported: Language[] = ["en", "zh", "hi", "es", "fr", "pt", "id", "de", "ja", "it"];
-
-const detectLanguage = (): Language => {
-  const urlLang = new URLSearchParams(window.location.search).get("lang");
-  if (urlLang && supported.includes(urlLang as Language)) return urlLang as Language;
-  const browserLangs = navigator.languages ?? [navigator.language];
-  for (const bl of browserLangs) {
-    const code = bl.split("-")[0].toLowerCase();
-    if (supported.includes(code as Language)) return code as Language;
-  }
-  return "en";
-};
-
 const ProductPage = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug, lang: langParam } = useParams<{ slug: string; lang?: string }>();
   const navigate = useNavigate();
   const { ageVerified, handleVerified } = useAgeGate();
 
   const product = products.find((p) => p.slug === slug);
-  const lang = detectLanguage();
+  const invalid = !!langParam && !isLang(langParam);
+  const lang: Language = isLang(langParam) ? langParam : DEFAULT_LANG;
   const t = translations[lang];
 
   const name = product ? (t[product.nameKey as keyof Translations] as string) : "";
@@ -38,62 +29,29 @@ const ProductPage = () => {
   const metaDesc = product ? (t[product.metaDescKey as keyof Translations] as string) : "";
   const metaKeywords = product ? (t[product.metaKeywordsKey as keyof Translations] as string) : "";
 
+  useSeo({
+    lang,
+    path: `/product/${slug}`,
+    title: metaTitle,
+    description: metaDesc,
+    keywords: metaKeywords,
+    image: product?.image || undefined,
+    type: "product",
+  });
+
   useEffect(() => {
-    if (!product) {
-      navigate("/", { replace: true });
-      return;
-    }
+    if (!product && !invalid) navigate(langPath(lang), { replace: true });
+  }, [product, invalid, lang, navigate]);
 
-    document.title = metaTitle;
-
-    const setMeta = (name: string, content: string) => {
-      let el = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      el.setAttribute("content", content);
-    };
-
-    const setOgMeta = (property: string, content: string) => {
-      let el = document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("property", property);
-        document.head.appendChild(el);
-      }
-      el.setAttribute("content", content);
-    };
-
-    setMeta("description", metaDesc);
-    setMeta("keywords", metaKeywords);
-    setOgMeta("og:title", metaTitle);
-    setOgMeta("og:description", metaDesc);
-    if (product.image) setOgMeta("og:image", product.image);
-    setOgMeta("og:type", "product");
-
-    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", `https://dickfon.xyz/product/${product.slug}`);
-
-    return () => {
-      document.title = "DICKFON";
-    };
-  }, [product, metaTitle, metaDesc, metaKeywords, navigate]);
-
+  if (invalid) return <NotFound />;
   if (!product) return null;
 
   const handleLangChange = (newLang: Language) => {
-    window.location.href = `/?lang=${newLang}`;
+    navigate(langPath(newLang, `/product/${product.slug}`));
   };
 
   const handleGateLangChange = (newLang: Language) => {
-    navigate({ search: `?lang=${newLang}` }, { replace: true });
+    navigate(langPath(newLang, `/product/${product.slug}`), { replace: true });
   };
 
   const paragraphs = longDesc.split("\n\n").filter(Boolean);
@@ -111,7 +69,7 @@ const ProductPage = () => {
 
       <main className="relative z-10 max-w-4xl mx-auto px-6 pt-28 pb-20">
         <Link
-          to="/#products"
+          to={`${langPath(lang)}#products`}
           className="btn-capsule btn-capsule-clear mb-8 text-xs">
           <Icon name="ArrowLeft" size={16} />
           {t.navProducts}
@@ -158,7 +116,7 @@ const ProductPage = () => {
 
             <div className="mt-10">
               <Link
-                to="/#contact"
+                to={`${langPath(lang)}#contact`}
                 className="btn-capsule btn-capsule-blue w-full py-4 text-base">
                 {t.contactTitle}
               </Link>
@@ -173,7 +131,7 @@ const ProductPage = () => {
             return (
               <Link
                 key={p.id}
-                to={`/product/${p.slug}`}
+                to={langPath(lang, `/product/${p.slug}`)}
                 className="product-card group">
                 <div className="product-card-inner">
                 {p.image && (
