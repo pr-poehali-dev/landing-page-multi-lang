@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import { useSeo } from "@/hooks/useSeo";
 import { homeSeo } from "@/data/seo";
@@ -19,6 +19,7 @@ import { products } from "@/data/products";
 const Index = () => {
   const { lang: langParam } = useParams<{ lang?: string }>();
   const navigate = useNavigate();
+  const { hash } = useLocation();
   const { ageVerified, handleVerified } = useAgeGate();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -33,6 +34,17 @@ const Index = () => {
     const legacy = new URLSearchParams(window.location.search).get("lang");
     if (isLang(legacy)) navigate(langPath(legacy), { replace: true });
   }, [navigate]);
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0 });
+      return;
+    }
+    const timer = setTimeout(() => {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [hash, langParam]);
 
   const handleLanguageChange = (newLang: Language) => {
     navigate(langPath(newLang));

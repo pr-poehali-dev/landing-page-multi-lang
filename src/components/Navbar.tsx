@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { langPath } from "@/lib/lang";
 import { Language, Translations } from "@/types/landing";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Icon from "@/components/ui/icon";
@@ -19,13 +21,28 @@ const HOME_LABEL: Record<Language, string> = {
 const Navbar = ({ lang, onLangChange, t }: Props) => {
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const homePath = langPath(lang);
+  const isHome = pathname.replace(/\/$/, "") === homePath.replace(/\/$/, "") || (homePath === "/" && pathname === "/");
+
   const scrollTo = (id: string) => {
     setOpen(false);
     if (id === "top") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (isHome) window.scrollTo({ top: 0, behavior: "smooth" });
+      else navigate(homePath);
       return;
     }
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    if (isHome && el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    if (!isHome && id === "contact" && el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    navigate(`${homePath}#${id}`);
   };
 
   const items = [
