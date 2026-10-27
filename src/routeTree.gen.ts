@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as LangIndexRouteImport } from './routes/$lang.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as LangProductSlugRouteImport } from './routes/$lang.product.$slug'
@@ -17,6 +18,11 @@ import { Route as LangProductSlugRouteImport } from './routes/$lang.product.$slu
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LangIndexRoute = LangIndexRouteImport.update({
@@ -37,12 +43,14 @@ const LangProductSlugRoute = LangProductSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/product/$slug': typeof ProductSlugRoute
   '/$lang/': typeof LangIndexRoute
   '/$lang/product/$slug': typeof LangProductSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/product/$slug': typeof ProductSlugRoute
   '/$lang': typeof LangIndexRoute
   '/$lang/product/$slug': typeof LangProductSlugRoute
@@ -50,20 +58,30 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/product/$slug': typeof ProductSlugRoute
   '/$lang/': typeof LangIndexRoute
   '/$lang/product/$slug': typeof LangProductSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/product/$slug' | '/$lang/' | '/$lang/product/$slug'
+  fullPaths:
+    '/' | '/sitemap.xml' | '/product/$slug' | '/$lang/' | '/$lang/product/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/product/$slug' | '/$lang' | '/$lang/product/$slug'
-  id: '__root__' | '/' | '/product/$slug' | '/$lang/' | '/$lang/product/$slug'
+  to:
+    '/' | '/sitemap.xml' | '/product/$slug' | '/$lang' | '/$lang/product/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/sitemap.xml'
+    | '/product/$slug'
+    | '/$lang/'
+    | '/$lang/product/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProductSlugRoute: typeof ProductSlugRoute
   LangIndexRoute: typeof LangIndexRoute
   LangProductSlugRoute: typeof LangProductSlugRoute
@@ -76,6 +94,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$lang/': {
@@ -104,6 +129,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProductSlugRoute: ProductSlugRoute,
   LangIndexRoute: LangIndexRoute,
   LangProductSlugRoute: LangProductSlugRoute,
