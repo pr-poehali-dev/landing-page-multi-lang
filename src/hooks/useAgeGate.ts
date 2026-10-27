@@ -11,7 +11,11 @@ const readVerified = (): boolean => {
 };
 
 export const useAgeGate = () => {
-  const [ageVerified, setAgeVerified] = useState<boolean>(readVerified);
+  const [ageVerified, setAgeVerified] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (readVerified()) setAgeVerified(true);
+  }, []);
 
   const handleVerified = useCallback(() => {
     try {

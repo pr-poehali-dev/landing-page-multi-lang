@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "@/lib/router-compat";
 import NotFound from "@/pages/NotFound";
-import { useSeo } from "@/hooks/useSeo";
 import { DEFAULT_LANG, isLang, langPath } from "@/lib/lang";
 import { products } from "@/data/products";
 import { translations } from "@/data/translations";
@@ -25,19 +24,6 @@ const ProductPage = () => {
 
   const name = product ? (t[product.nameKey as keyof Translations] as string) : "";
   const longDesc = product ? (t[product.longDescKey as keyof Translations] as string) : "";
-  const metaTitle = product ? (t[product.metaTitleKey as keyof Translations] as string) : "";
-  const metaDesc = product ? (t[product.metaDescKey as keyof Translations] as string) : "";
-  const metaKeywords = product ? (t[product.metaKeywordsKey as keyof Translations] as string) : "";
-
-  useSeo({
-    lang,
-    path: `/product/${slug}`,
-    title: metaTitle,
-    description: metaDesc,
-    keywords: metaKeywords,
-    image: product?.image || undefined,
-    type: "product",
-  });
 
   useEffect(() => {
     if (!product && !invalid) navigate(langPath(lang), { replace: true });

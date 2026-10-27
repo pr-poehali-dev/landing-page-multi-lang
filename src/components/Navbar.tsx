@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "@/lib/router-compat";
 import { langPath } from "@/lib/lang";
 import { Language, Translations } from "@/types/landing";
 import LanguageSwitcher from "./LanguageSwitcher";

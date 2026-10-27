@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "@/lib/router-compat";
 import NotFound from "@/pages/NotFound";
-import { useSeo } from "@/hooks/useSeo";
-import { homeSeo } from "@/data/seo";
 import { DEFAULT_LANG, isLang, langPath } from "@/lib/lang";
 import AgeGate from "@/components/AgeGate";
 import { useAgeGate } from "@/hooks/useAgeGate";
@@ -26,9 +24,6 @@ const Index = () => {
   const invalid = !!langParam && !isLang(langParam);
   const lang: Language = isLang(langParam) ? langParam : DEFAULT_LANG;
   const t = translations[lang];
-  const seo = homeSeo[lang];
-
-  useSeo({ lang, path: "/", title: seo.title, description: seo.description, keywords: seo.keywords });
 
   useEffect(() => {
     const legacy = new URLSearchParams(window.location.search).get("lang");
