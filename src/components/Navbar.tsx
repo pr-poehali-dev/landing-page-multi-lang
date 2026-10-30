@@ -16,6 +16,7 @@ const NAV_STYLES = ["btn-nav-blue", "btn-nav-orange", "btn-nav-ice"];
 const HOME_LABEL: Record<Language, string> = {
   en: "Home", zh: "首页", hi: "होम", es: "Inicio", fr: "Accueil",
   pt: "Início", id: "Beranda", de: "Start", ja: "ホーム", it: "Home",
+  ko: "홈", th: "หน้าแรก", fi: "Etusivu", sv: "Hem", da: "Hjem", pl: "Start", cs: "Domů",
 };
 
 const Navbar = ({ lang, onLangChange, t }: Props) => {

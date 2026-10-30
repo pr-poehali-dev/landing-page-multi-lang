@@ -1,4 +1,4 @@
-export type Language = "en" | "zh" | "hi" | "es" | "fr" | "pt" | "id" | "de" | "ja" | "it";
+export type Language = "en" | "zh" | "hi" | "es" | "fr" | "pt" | "id" | "de" | "ja" | "it" | "ko" | "th" | "fi" | "sv" | "da" | "pl" | "cs";
 
 export interface Product {
   id: number;

@@ -1,4 +1,11 @@
 import { Language, Translations } from "@/types/landing";
+import { ko } from "@/data/locales/ko";
+import { th } from "@/data/locales/th";
+import { fi } from "@/data/locales/fi";
+import { sv } from "@/data/locales/sv";
+import { da } from "@/data/locales/da";
+import { pl } from "@/data/locales/pl";
+import { cs } from "@/data/locales/cs";
 
 export const translations: Record<Language, Translations> = {
   en: {
@@ -511,4 +518,5 @@ export const translations: Record<Language, Translations> = {
     product3MetaDesc: "DICKFON Exclusive: microfono pene e microfono fallico su misura, fatto a mano con qualità da studio. Silicone, resina o cristalli. Regalo VIP per collezionisti.",
     product3MetaKeywords: "microfono pene, microfono fallico, microfono a forma di pene, microfono dildo, microfono pisello, microfono cazzo, microfono fallico personalizzato, dickfon exclusive, regalo VIP unico, collezionista microfono",
   },
+  ko, th, fi, sv, da, pl, cs,
 };

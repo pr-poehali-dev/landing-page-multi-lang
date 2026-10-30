@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { DEFAULT_LANG, isLang, langPath } from "@/lib/lang";
 import AgeGate from "@/components/AgeGate";
 import { useAgeGate } from "@/hooks/useAgeGate";
+import { useAutoLang } from "@/hooks/useAutoLang";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ProductsSection from "@/components/ProductsSection";
@@ -20,6 +21,8 @@ const Index = () => {
   const { hash } = useLocation();
   const { ageVerified, handleVerified } = useAgeGate();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  useAutoLang(langParam, "/");
 
   const invalid = !!langParam && !isLang(langParam);
   const lang: Language = isLang(langParam) ? langParam : DEFAULT_LANG;

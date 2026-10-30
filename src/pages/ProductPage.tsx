@@ -11,11 +11,14 @@ import ContactSection from "@/components/ContactSection";
 import Icon from "@/components/ui/icon";
 import AgeGate from "@/components/AgeGate";
 import { useAgeGate } from "@/hooks/useAgeGate";
+import { useAutoLang } from "@/hooks/useAutoLang";
 
 const ProductPage = () => {
   const { slug, lang: langParam } = useParams<{ slug: string; lang?: string }>();
   const navigate = useNavigate();
   const { ageVerified, handleVerified } = useAgeGate();
+
+  useAutoLang(langParam, `/product/${slug}`);
 
   const product = products.find((p) => p.slug === slug);
   const invalid = !!langParam && !isLang(langParam);

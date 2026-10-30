@@ -1,4 +1,11 @@
 import { Language } from "@/types/landing";
+import { koSeo } from "@/data/locales/ko";
+import { thSeo } from "@/data/locales/th";
+import { fiSeo } from "@/data/locales/fi";
+import { svSeo } from "@/data/locales/sv";
+import { daSeo } from "@/data/locales/da";
+import { plSeo } from "@/data/locales/pl";
+import { csSeo } from "@/data/locales/cs";
 
 export const homeSeo: Record<Language, { title: string; description: string; keywords: string }> = {
   en: {
@@ -51,4 +58,5 @@ export const homeSeo: Record<Language, { title: string; description: string; key
     description: "DICKFON: il microfono pene più scandaloso al mondo, un microfono fallico perfetto per feste karaoke, addii al celibato/nubilato, eventi aziendali e contenuti virali. Modelli Karaoke, Lavalier ed Exclusive.",
     keywords: "microfono pene, microfono fallico, microfono pisello, microfono cazzo, microfono a forma di pene, microfono divertente, dickfon, regalo karaoke, regalo addio al nubilato",
   },
+  ko: koSeo, th: thSeo, fi: fiSeo, sv: svSeo, da: daSeo, pl: plSeo, cs: csSeo,
 };
