@@ -14,3 +14,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://dickfon.xyz/sitemap.xml
+Sitemap: https://dickfon.xyz/sitemap-main.xml
